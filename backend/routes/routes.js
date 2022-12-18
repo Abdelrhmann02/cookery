@@ -5,6 +5,7 @@ const controller = require("../controllers/controllers");
 router.get("/", controller.listRecipes);
 
 router.get("/Breakfast",controller.listBreakfast);
+router.get("/Dinner",controller.listDinner);
 
 router.use(function(req, res) {
         res.status(404);

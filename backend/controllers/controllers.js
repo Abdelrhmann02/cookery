@@ -24,3 +24,14 @@ exports.listBreakfast = function (req, res) {
       console.log("promise rejected", err);
     });
 };
+
+exports.listDinner = function (req, res) {
+  recipes.getDinner()
+    .then((list) => {
+      res.json(list);
+      console.log(list);
+    })
+    .catch((err) => {
+      console.log("promise rejected", err);
+    });
+};

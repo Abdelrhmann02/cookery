@@ -12,7 +12,7 @@ function Dinner() {
 
 
   const fetchData = useCallback(()=>{
-    const url = "http://localhost:3001/Breakfast"
+    const url = "http://localhost:3001/Dinner"
     fetch(url)
         .then((response)=>response.json())
         .then((incomingData) =>{
