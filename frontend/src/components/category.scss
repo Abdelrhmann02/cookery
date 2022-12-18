@@ -1,0 +1,65 @@
+.wrapper{
+
+    padding-top: 50px;
+    padding-bottom: 50px;
+    
+
+    h3{
+        color: rgba(37,36,34,1);
+        font-family: "Montserrat";
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        vertical-align: center;
+    }
+}
+
+.wrapper_dinner{
+
+    background-color: #ff9800;
+    padding-top: 50px;
+    padding-bottom: 80px;
+    padding-right: 30px;
+    padding-left: 30px;
+
+
+    h3{
+        padding-left: 80px;
+        color: rgba(37,36,34,1);
+        font-family: "Montserrat";
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        vertical-align: center;
+
+    }
+
+}
+
+.heart{
+    font-size: 35px;
+    color:rgb(182, 173, 173);
+    margin-top: 7px;
+    width: 70px;
+    outline: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: bold;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+     
+    &:hover{
+     color: #ff9800;
+    }
+    &.active {
+     color: #ff9800;
+    }
+ }
+
+.title-container {
+  position: relative;
+  height: 50px;
+  width: 100%;
+}

@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css?family=Libre+Baskerville:700");
+
+.footer{
+    background-color: #393836;
+    display: flex;
+    height: 300px;
+    min-width: 1080px;
+    padding: 118px 120px;
+}
+
+.logo{
+    color: #ff9800;
+    font-family: 'Libre Baskerville';
+    font-size:48px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 55px;
+    min-height: 56px;
+    white-space: nowrap;
+}
