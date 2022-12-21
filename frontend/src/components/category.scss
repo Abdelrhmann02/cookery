@@ -6,6 +6,7 @@
 
     h3{
         color: rgba(37,36,34,1);
+        font-weight: 700;
         font-family: "Montserrat";
         display: flex;
         justify-content: center;
@@ -17,6 +18,27 @@
 .wrapper_dinner{
 
     background-color: #ff9800;
+    padding-top: 50px;
+    padding-bottom: 80px;
+    padding-right: 30px;
+    padding-left: 30px;
+
+
+    h3{
+        padding-left: 80px;
+        color: rgba(37,36,34,1);
+        font-family: "Montserrat";
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        vertical-align: center;
+
+    }
+
+}
+
+.wrapper_menu{
+
     padding-top: 50px;
     padding-bottom: 80px;
     padding-right: 30px;

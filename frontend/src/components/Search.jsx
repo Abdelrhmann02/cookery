@@ -11,7 +11,6 @@ function Search() {
   const submitHandler = (e) => {
     e.preventDefault();
     navigate(`/searched/${input}`);
-
     console.log(e);
   };
 
@@ -35,25 +34,28 @@ const FormStyle = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
+
   div {
     position: relative;
-    width: 500px;
+    width: 600px;
     max-width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
   }
+
   input {
     border: none;
     background: linear-gradient(35deg, #494949, #313131);
     font-size: 1.5rem;
     color: white;
-    padding: 1rem 3rem;
+    padding: 0.5rem 2rem;
     border: none;
     border-radius: 0.5rem;
     outline: none;
     width: 100%;
   }
+
   svg {
     position: absolute;
     top: 50%;

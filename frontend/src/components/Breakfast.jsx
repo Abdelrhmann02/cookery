@@ -4,10 +4,11 @@ import {FcAlarmClock} from 'react-icons/fc';
 import {RiHeart3Fill} from 'react-icons/ri';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./category.scss"
+import { Link } from 'react-router-dom';
 
-function Breakfast() {
+const Breakfast = ({menu,addToMenu}) => {
   const[recipes,setRecipes] = useState([])
-  const [menu, setMenu] = useState([]);
+  const [iconStates, setIconStates] = useState({});
 
   const fetchData = useCallback(()=>{
     const url = "http://localhost:3001/Breakfast"
@@ -27,11 +28,9 @@ function Breakfast() {
   const groupIndex = Math.floor(index / 3);
   if (!acc[groupIndex]) acc[groupIndex] = [];
   acc[groupIndex].push(cur);
-  console.log(acc);
   return acc;
   };
 
-const [iconStates, setIconStates] = useState({});
 
 return (
       <div className='wrapper'>
@@ -46,22 +45,20 @@ return (
               return (
                 <Col sm>
                 <Card key={index} style={{ width: "18rem" }}>
+                  <Link to={'/recipe/'+ item.name}>
                   <Card.Img variant="top" src={item.photo_location} />
+                  </Link>
                   <Card.Body>
                   <div className="title-container">
                     <Card.Title>
                     {item.name} 
                     <RiHeart3Fill
+                    key={item._id}
                     className={
                       iconStates[item._id] ? 'heart active' : 'heart'
                     }
-                    onClick={() => {
-                        if (menu.includes(item)) {
-                          setMenu(menu.filter(menuItem => menuItem._id !== item._id));
-                        } else {
-                          setMenu(menu.concat(item));
-                        }
-                        localStorage.setItem('menu', JSON.stringify(menu));
+                    onClick={(e) => {
+                        addToMenu(e,item)
                         setIconStates({...iconStates, [item._id]: !iconStates[item._id]})
                     }}
                   />
@@ -69,6 +66,7 @@ return (
                     <p><FcAlarmClock/> {item.prep_time + item.cook_time} minutes     </p>
                   </div>
                   </Card.Body>
+                  
                 </Card>
                 </Col>
               );

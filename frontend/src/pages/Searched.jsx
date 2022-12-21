@@ -1,55 +1,34 @@
-import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import { useEffect, useState, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
+import ShowRecipes from '../components/ShowRecipes';
 
 function Searched() {
-	const [searchedRecipes, setSearchedRecipes] = useState([]);
+	const [recipes,setRecipes] = useState([])
 	let params = useParams();
 
-	const getSearched = async name => {
-		const data = await fetch(
-			`http://localhost:3001/`
-		);
-		const recipes = await data.json();
-		setSearchedRecipes(recipes.results);
-	};
+	const fetchData = useCallback(()=>{
+		const url = "http://localhost:3001/"
+		fetch(url)
+			.then((response)=>response.json())
+			.then((incomingData) =>{
+				setRecipes(incomingData)
+			})
+			.catch((err)=>console.log(err))
+	  },[]);
+	
+	  useEffect(()=>{
+		  fetchData();
+	  },[fetchData]);
 
-	useEffect(() => {
-		getSearched(params.search);
-	}, [params.search]);
+	
+	console.log("Data: ",recipes)
+	const filtered = recipes.filter((recipe) => {
+		return recipe.name.toLowerCase().includes(params.search)
+	})
 
 	return (
-		<Grid>
-			{searchedRecipes.map(recipe => {
-				return (
-					<Link to={`/recipe/${recipe.id}`}>
-						<Card key={recipe.id}>
-							<img src={recipe.image} alt={recipe.title} />
-							<h4>{recipe.title}</h4>
-						</Card>
-					</Link>
-				);
-			})}
-		</Grid>
+		<ShowRecipes data={filtered}/>
 	);
 }
-const Grid = styled.div`
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-	grid-gap: 3rem;
-`;
 
-const Card = styled.div`
-	img {
-		width: 100%;
-		border-radius: 2rem;
-	}
-	a {
-		text-decoration: none;
-	}
-	h4 {
-		text-align: center;
-		padding: 1rem;
-	}
-`;
 export default Searched;
