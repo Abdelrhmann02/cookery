@@ -7,8 +7,7 @@ function Searched() {
 	let params = useParams();
 
 	const fetchData = useCallback(()=>{
-		const url = "http://localhost:3001/"
-		fetch(url)
+		fetch("/all")
 			.then((response)=>response.json())
 			.then((incomingData) =>{
 				setRecipes(incomingData)

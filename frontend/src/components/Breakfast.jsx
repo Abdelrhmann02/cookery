@@ -16,8 +16,7 @@ const Breakfast = ({menu,addToMenu}) => {
   }
 
   const fetchData = useCallback(()=>{
-    const url = "http://localhost:3001/Breakfast"
-    fetch(url)
+    fetch("/Breakfast")
         .then((response)=>response.json())
         .then((incomingData) =>{
             setRecipes(incomingData)

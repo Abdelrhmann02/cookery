@@ -15,8 +15,7 @@ const Dinner = ({menu,addToMenu}) => {
     setIconStates({...iconStates, [itemId]: !iconStates[itemId]});
   }
   const fetchData = useCallback(()=>{
-    const url = "http://localhost:3001/Dinner"
-    fetch(url)
+    fetch("/Dinner")
         .then((response)=>response.json())
         .then((incomingData) =>{
             setRecipes(incomingData)
