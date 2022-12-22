@@ -23,8 +23,8 @@ const FetchNutrition = ({ query }) => {
       const options = {
         method: "GET",
         headers: {
-          "X-RapidAPI-Key": 'f4fce20ddcmshb2738e21777f05ep1f7a52jsn9d12df236331',
-          "X-RapidAPI-Host": 'calorieninjas.p.rapidapi.com',
+          "X-RapidAPI-Key": process.env.REACT_APP_API_Key,
+          "X-RapidAPI-Host": process.env.REACT_APP_API_Host,
         },
       };
 
