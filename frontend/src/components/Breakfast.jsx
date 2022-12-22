@@ -5,10 +5,15 @@ import {RiHeart3Fill} from 'react-icons/ri';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./category.scss"
 import { Link } from 'react-router-dom';
+import { useLocalStorage } from './useLocalStorage';
 
 const Breakfast = ({menu,addToMenu}) => {
   const[recipes,setRecipes] = useState([])
-  const [iconStates, setIconStates] = useState({});
+  const [iconStates, setIconStates] = useLocalStorage('iconStates',{});
+
+  const handleClick = (itemId) => {
+    setIconStates({...iconStates, [itemId]: !iconStates[itemId]});
+  }
 
   const fetchData = useCallback(()=>{
     const url = "http://localhost:3001/Breakfast"
@@ -59,7 +64,7 @@ return (
                     }
                     onClick={(e) => {
                         addToMenu(e,item)
-                        setIconStates({...iconStates, [item._id]: !iconStates[item._id]})
+                        handleClick(item._id)
                     }}
                   />
                     </Card.Title>

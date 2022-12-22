@@ -21,7 +21,6 @@ function Searched() {
 	  },[fetchData]);
 
 	
-	console.log("Data: ",recipes)
 	const filtered = recipes.filter((recipe) => {
 		return recipe.name.toLowerCase().includes(params.search)
 	})

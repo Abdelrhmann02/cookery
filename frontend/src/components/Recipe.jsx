@@ -1,72 +1,89 @@
-import React, {useState,useCallback,useEffect} from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { Row,Col } from 'react-bootstrap';
+import FetchNutrition from "./FetchNutrition"
+import { useLocalStorage } from './useLocalStorage';
 
-function Recipe() {
-  let params = useParams();
+const Recipe = ({data}) => {
 
-  const[recipes,setRecipes] = useState([])
+
+
   const [activeTab, setActiveTab] = useState("instructions");
-  
-  const fetchData = useCallback(()=>{
-    const url = "http://localhost:3001/"
-    fetch(url)
-        .then((response)=>response.json())
-        .then((incomingData) =>{
-            setRecipes(incomingData)  
-        })
-        .catch((err)=>console.log(err))
-  },[]);
-
-  useEffect(()=>{
-      fetchData();
-  },[fetchData]);
-
-  const recipe = recipes.filter((item) => {
-		return item.name.includes(params.name)
-	})
-
-  
   return (
-    <DetailWrapper>
-      <div className="imageWrapper">
-        <h2>{recipe[0].name}</h2>
-        <img src={recipe[0].photo_location} alt="" />
-      </div>
-      <Info>
+    <div>
+      {data.map((item)=>{
+        return(
+      <>
+        <Title>
+          <h2>{item.name}</h2>
+        </Title>
+        <DetailWrapper>
+        <div className="imageWrapper">
+        <img src={item.photo_location} alt="" />
+        </div>
+        <Info>
+        <Row>
+        <Col >
         <Button
           className={activeTab === "instructions" ? "active" : ""}
           onClick={() => setActiveTab("instructions")}
         >
           Instructions
         </Button>
+        </Col>
+        <Col >
         <Button
           className={activeTab === "ingredients" ? "active" : ""}
           onClick={() => setActiveTab("ingredients")}
         >
           Ingredients
         </Button>
+        </Col>
+        <Col >
+        <Button
+          className={activeTab === "nutrition" ? "active" : ""}
+          onClick={() => setActiveTab("nutrition")}
+        >
+          Nutritional
+        </Button>
+        </Col>
+        </Row>
 
         {activeTab === "instructions" && (
           <div>
-            <p dangerouslySetInnerHTML={{ __html: recipe[0].description }}></p>
-            <p dangerouslySetInnerHTML={{ __html: recipe[0].steps }}></p>
+            <p dangerouslySetInnerHTML={{ __html: item.description }}></p>
+              <ol>
+              {item.steps.map((step) => {
+                return <li key={item._id}>{step}</li>;
+              })}
+            </ol>
           </div>
         )}
         {activeTab === "ingredients" && (
-          <ul>
-            {recipe[0].ingredients.map((ingredient) => {
-              return <li key={recipe[0]._id}>{ingredient}</li>;
-            })}
-          </ul>
+          <>
+            <ul>
+              {item.ingredients.map((ingredient) => {
+                return <li key={item._id}>{ingredient}</li>;
+              })}
+            </ul>
+            <Button>Add to Shopping Cart</Button>
+          </>
+        )}
+        {activeTab === "nutrition" && ( 
+          <FetchNutrition query={item.name} />
         )}
       </Info>
-    </DetailWrapper>
+      </DetailWrapper>
+      </>
+        )
+      })}
+      
+    </div>
   );
 }
 
 const DetailWrapper = styled.div`
-  margin-top: 10rem;
+  margin-top: 2rem;
   margin-bottom: 5rem;
   display: flex;
   color: var(--gray-800);
@@ -79,7 +96,7 @@ const DetailWrapper = styled.div`
     line-height: 1.25rem;
   }
   h2 {
-    margin-bottom: 2rem;
+    text-align: center;
   }
   ul {
     margin-top: 2rem;
@@ -113,6 +130,7 @@ const DetailWrapper = styled.div`
       width: 100%;
     }
     .imageWrapper {
+      padding-right: 2rem;
       display: flex;
       flex-direction: column;
       justifycontent: center;
@@ -122,8 +140,9 @@ const DetailWrapper = styled.div`
 `;
 
 const Button = styled.button`
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   margin-bottom: 1rem;
+  width: 60%;
   color: #313131;
   background: white;
   border: 2px solid black;
@@ -133,6 +152,10 @@ const Button = styled.button`
   transition: all 0.2s;
   &:hover {
     background: var(--gray-800);
+    color: var(--gray-50);
+  }
+  &:active {
+    background: #ff9800;
     color: var(--gray-50);
   }
 `;
@@ -156,4 +179,13 @@ const Info = styled.div`
   }
 `;
 
-export default Recipe
+const Title = styled.div`
+  h2{
+    text-align: center;
+    margin-top: 3rem;
+  }
+`
+
+
+
+export default Recipe;

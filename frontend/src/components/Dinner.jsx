@@ -1,15 +1,19 @@
 import React, {useState,useCallback,useEffect} from 'react'
-import {Carousel,Card,Row,Col,Button} from 'react-bootstrap';
+import {Carousel,Card,Row,Col} from 'react-bootstrap';
 import {FcAlarmClock} from 'react-icons/fc';
 import {RiHeart3Fill} from 'react-icons/ri';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./category.scss"
 import { Link } from 'react-router-dom';
+import { useLocalStorage } from './useLocalStorage';
 
 const Dinner = ({menu,addToMenu}) => {
   const[recipes,setRecipes] = useState([])
-  const [iconStates, setIconStates] = useState({});
+  const [iconStates, setIconStates] = useLocalStorage('iconStates',{});
   
+  const handleClick = (itemId) => {
+    setIconStates({...iconStates, [itemId]: !iconStates[itemId]});
+  }
   const fetchData = useCallback(()=>{
     const url = "http://localhost:3001/Dinner"
     fetch(url)
@@ -60,8 +64,8 @@ return (
                     }
                     onClick={(e) => {
                       addToMenu(e,item)
-                        setIconStates({...iconStates, [item._id]: !iconStates[item._id]})
-                    }}
+                      handleClick(item._id)
+                      }}
                   />
                     </Card.Title>
                     <p><FcAlarmClock/> {item.prep_time + item.cook_time} minutes</p>
