@@ -20,7 +20,7 @@ A live and deployed version of the website:
 * The Deployed version isn't fully working unfortuantely, there's a problem with the database connection.
 
 ## Video of the website
-* [Cookery Video](https://cookery-zz8t.vercel.app/)
+* [Cookery Video](https://youtu.be/WUxrj0sCO1k)
 
 ## Getting Started
 
