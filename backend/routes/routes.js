@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/controllers");
 
-router.get("/", controller.listRecipes);
 router.get("/all", controller.listRecipes);
 router.get("/Breakfast",controller.listBreakfast);
 router.get("/Dinner",controller.listDinner);

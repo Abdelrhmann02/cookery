@@ -1,8 +1,6 @@
 const RecipesDAO = require("../models/recipesModel");
 const recipes = new RecipesDAO({ filename: "recipes.db", autoload: true });
 
-recipes.init();
-
 exports.listRecipes = function (req, res) {
   recipes.getAllEntries()
     .then((list) => {
